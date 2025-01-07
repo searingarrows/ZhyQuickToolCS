@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="ZhyQuickToolCS.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZhyQuickToolCS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tb="using:H.NotifyIcon"
+    mc:Ignorable="d"
+    Title="ZhyQuickToolCS" Activated="Window_Activated" Closed="Window_Closed" SizeChanged="Window_SizeChanged">
+
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
+            <AppBarButton Icon="Add" Label="Add" Click="OpenScriptsFolder"/>
+            <AppBarButton Icon="Refresh" Label="Refresh" Click="RefreshScripts_Clicked"/>
+        </CommandBar>
+        <GridView x:Name="ScriptsView" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsItemClickEnabled="True" ItemClick="ScriptsView_ItemClick" SelectionMode="None">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="local:Script">
+                    <Border BorderBrush="DarkCyan" BorderThickness="2" Margin="5" Padding="10">
+                        <TextBlock  Text="{x:Bind Name}" />
+                    </Border>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <tb:TaskbarIcon x:Name="TrayIcon" x:FieldModifier="public" IconSource="ms-appx:///Assets/Notify.ico" NoLeftClickDelay="True">
+            <tb:TaskbarIcon.ContextFlyout>
+                <MenuFlyout AreOpenCloseAnimationsEnabled="False">
+                    <MenuFlyoutItem  x:Name="TrayMenuItem0" Text="Show" />
+                    <MenuFlyoutItem x:Name="TrayMenuItem1" Text="Exit" />
+                </MenuFlyout>
+            </tb:TaskbarIcon.ContextFlyout>
+        </tb:TaskbarIcon>
+    </StackPanel>
+</Window>

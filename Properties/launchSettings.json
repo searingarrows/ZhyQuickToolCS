@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ZhyQuickToolCS (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ZhyQuickToolCS (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

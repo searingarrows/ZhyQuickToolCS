@@ -1,0 +1,10 @@
+﻿RegisterHotKey
+SetWindowLongPtr
+CallWindowProc
+ShowWindow
+SetForegroundWindow
+SetFocus
+SetActiveWindow
+GetCursorPos
+SetWindowPos
+MessageBox
