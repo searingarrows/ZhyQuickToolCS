@@ -45,7 +45,7 @@ namespace ZhyQuickToolCS
         private Windows.Win32.UI.WindowsAndMessaging.WNDPROC origPrc;
         private Windows.Win32.UI.WindowsAndMessaging.WNDPROC hotKeyPrc;
         private StorageFolder? scriptsFolder;
-        private List<Script> scripts = new List<Script>();
+        private ObservableCollection<Script> Scripts { get; } = new ObservableCollection<Script>();
         private bool executingTasks = false;
         private bool ExecutingTasks
         {
@@ -131,20 +131,20 @@ namespace ZhyQuickToolCS
             }
             await Task.WhenAll(tasks);
 
-            scripts.Clear();
+            Scripts.Clear();
             foreach (var task in tasks)
             {
                 if (task.Result != null)
                 {
-                    scripts.Add(task.Result);
+                    Scripts.Add(task.Result);
                 }
             }
-            var items = ScriptsView.Items;
-            items.Clear();
-            foreach (var script in scripts)
-            {
-                items.Add(script);
-            }
+            //var items = ScriptsView.Items;
+            //items.Clear();
+            //foreach (var script in scripts)
+            //{
+            //    items.Add(script);
+            //}
             executingTasks = false;
         }
 
@@ -195,7 +195,7 @@ namespace ZhyQuickToolCS
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
                 localSettings.Values["WinWidth"] = winWidth.ToString();
                 localSettings.Values["WinHeight"] = winHeight.ToString();
-                //AppWindow.Hide();
+                AppWindow.Hide();
             }
         }
 
