@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Management.Automation;
 using System.Text;
@@ -42,9 +43,15 @@ namespace ZhyQuickToolCS
         }
 
 
-        public override void Execute()
+        public override async Task<string> Execute()
         {
-            powerShell.Invoke();
+            string ret = "";
+            var results = await powerShell.InvokeAsync();
+            foreach (var result in results)
+            {
+                ret += result.ToString() + Environment.NewLine;
+            }
+            return ret;
         }
 
     }

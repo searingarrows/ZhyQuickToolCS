@@ -222,17 +222,21 @@ namespace ZhyQuickToolCS
             Process.Start("explorer.exe", scriptsFolder.Path);
         }
 
-        private void ScriptsView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void ScriptsView_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (ExecutingTasks)
             {
                 return;
             }
+            executingTasks = true;
+            ScriptOutput.Text = "";
             var script = e.ClickedItem as Script;
             if (script != null)
             {
-                script.Execute();
+                var ret = script.Execute();
+                ScriptOutput.Text = await ret;
             }
+            executingTasks = false;
         }
 
         private void Window_SizeChanged(object sender, WindowSizeChangedEventArgs args)

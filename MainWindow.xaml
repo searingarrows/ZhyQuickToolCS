@@ -13,31 +13,36 @@
     <Page>
         <Page.Resources>
             <DataTemplate x:Key="ScriptTemplate">
-                <Border BorderBrush="DarkCyan" BorderThickness="2" Margin="5" Padding="10">
-                    <TextBlock  Text="{Binding DisplayName}" />
+                <Border BorderBrush="DarkCyan" BorderThickness="2" Margin="0" Padding="5" CornerRadius="5">
+                    <TextBlock  Text="{Binding DisplayName}" TextAlignment="Center" TextWrapping="NoWrap"/>
                 </Border>
             </DataTemplate>
         </Page.Resources>
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
-                <AppBarButton Icon="Add" Label="Add" Click="OpenScriptsFolder"/>
-                <AppBarButton Icon="Refresh" Label="Refresh" Click="RefreshScripts_Clicked"/>
+        <controls:DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" controls:DockPanel.Dock="Top">
+                <AppBarButton Icon="Add" Label="脚本目录" Click="OpenScriptsFolder"/>
+                <AppBarButton Icon="Refresh" Label="重新加载" Click="RefreshScripts_Clicked"/>
             </CommandBar>
 
             <ListView x:Name="ScriptsView"
               IsItemClickEnabled="True"
               ItemClick="ScriptsView_ItemClick"
               ItemTemplate="{StaticResource ScriptTemplate}"
-              ItemsSource="{x:Bind Scripts, Mode=OneWay}">
+              ItemsSource="{x:Bind Scripts, Mode=OneWay}"
+              SelectionMode="None"
+              controls:DockPanel.Dock="Top">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls:WrapPanel x:Name="sampleWrapPanel"
-                                    Padding="12"
-                                    HorizontalSpacing="{Binding HorizontalSpacing, ElementName=ThisSamplePage, Mode=OneWay}"
-                                    VerticalSpacing="{Binding VerticalSpacing, ElementName=ThisSamplePage, Mode=OneWay}" />
+                        <controls:WrapPanel Padding="0" HorizontalSpacing="0" VerticalSpacing="0"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ListView>
+            <ScrollView Background="Black" Height="240" 
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ZoomMode="Disabled" 
+                        HorizontalScrollMode="Auto" VerticalScrollMode="Auto" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto"
+                        controls:DockPanel.Dock="Bottom" Margin="10" BorderThickness="3" BorderBrush="DarkCyan">
+                <TextBlock x:Name="ScriptOutput" Foreground="WhiteSmoke"/>
+            </ScrollView>
             <tb:TaskbarIcon x:Name="TrayIcon" x:FieldModifier="public" IconSource="ms-appx:///Assets/Notify.ico" NoLeftClickDelay="True">
                 <tb:TaskbarIcon.ContextFlyout>
                     <MenuFlyout AreOpenCloseAnimationsEnabled="False">
@@ -46,6 +51,6 @@
                     </MenuFlyout>
                 </tb:TaskbarIcon.ContextFlyout>
             </tb:TaskbarIcon>
-        </StackPanel>
+        </controls:DockPanel>
     </Page>
 </Window>

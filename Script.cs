@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ZhyQuickToolCS
 {
@@ -26,6 +22,6 @@ namespace ZhyQuickToolCS
             this.displayName = name;
         }
 
-        public abstract void Execute();
+        public abstract Task<string> Execute();
     }
 }
