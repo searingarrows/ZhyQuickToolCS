@@ -47,10 +47,21 @@ namespace ZhyQuickToolCS
         {
             string ret = "";
             var results = await powerShell.InvokeAsync();
-            foreach (var result in results)
+            if (powerShell.HadErrors)
             {
-                ret += result.ToString() + Environment.NewLine;
+                foreach (var result in powerShell.Streams.Error)
+                {
+                    ret += result.ToString() + Environment.NewLine;
+                }
             }
+            else
+            {
+                foreach (var result in results)
+                {
+                    ret += result.ToString() + Environment.NewLine;
+                }
+            }
+            powerShell.Streams.ClearStreams();
             return ret;
         }
 
